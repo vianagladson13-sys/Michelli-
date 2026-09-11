@@ -63,20 +63,18 @@
         </div>
 
         <!-- Botão -->
-        <button type="submit" class="btn btn-primary w-100">
-            Cadastrar
-        </button>
+        
+                <button type="submit" class="btn btn-primary w-100 mb-2">
+                  Cadastrar
+        
+                </button>
 
-
-        <button
-            type="reset"
-            class="btn btn-limpar">
-
-            <i class="bi bi-arrow-counterclockwise me-2"></i>
-
-            Limpar
-
-        </button>
+                <button type="reset" class="btn btn-primary w-100">
+                    
+                <i class="bi bi-arrow-counterclockwise me-2"></i>
+                    Limpar
+                
+                </button>
     </form>
 
     <!-- Mensagem de retorno -->

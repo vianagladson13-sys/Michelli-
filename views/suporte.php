@@ -98,11 +98,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item ms-lg-3">
-                        <a href="login.php" class="btn btn-login">
-                            Entrar
-                        </a>
-                    </li>
+                    
 
                 </ul>
 
