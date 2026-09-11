@@ -6,7 +6,7 @@
     <h2>Cadastro de usuario</h2>
 
     <!-- Formulário -->
-    <form id="formuUsuario">
+    <form id="formUsuario">
 
         <!-- Nome -->
         <div class="mb-3">
