@@ -103,9 +103,7 @@
                         =========================================== -->
 
                         <form
-                            id="formLogin"
-                            method="POST"
-                            action="index.php?page=home"
+                            id="formLogin"                                                    
                             novalidate>
 
 
