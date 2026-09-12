@@ -1,157 +1,148 @@
 <?php
 
-// A resposta será enviada em formato JSON
-header("Content-Type: application/json; charset=utf-8");
+// =========================================
+// INICIA A SESSÃO
+// =========================================
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 
-// Carrega a classe Validator
-require __DIR__ . "/../libs/php/Validator.php";
+// =========================================
+// RESPOSTA EM JSON
+// =========================================
+
+header(
+    "Content-Type: application/json; charset=utf-8"
+);
 
 
-// Verifica se a requisição é do tipo POST
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+// =========================================
+// ARQUIVOS NECESSÁRIOS
+// =========================================
 
-    http_response_code(405);
+require __DIR__ . "/../config/database.php";
+require __DIR__ . "/../models/UsuarioModel.php";
+require __DIR__ . "/../models/LogModel.php";
+
+
+// =========================================
+// CONECTA COM O BANCO
+// =========================================
+
+$pdo = conectarBanco();
+
+// =========================================
+// RECEBE OS DADOS DO FORMULÁRIO
+// =========================================
+
+$email = trim(
+    $_POST["email"] ?? ""
+);
+
+$senha = $_POST["senha"] ?? "";
+
+
+// =========================================
+// VALIDA OS CAMPOS
+// =========================================
+
+if ($email === "" || $senha === "") {
 
     echo json_encode([
         "sucesso" => false,
-        "mensagem" => "Método não permitido. Utilize uma requisição POST.",
-        "dados" => null,
-        "erros" => null
-    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        "mensagem" => "Preencha e-mail e senha."
+    ]);
 
     exit;
 }
 
 
-// Cria o objeto validador
-$validator = new Validator($_POST);
+// =========================================
+// VALIDA O FORMATO DO E-MAIL
+// =========================================
 
-
-// Executa as regras de validação
-validarCadastro($validator);
-
-
-// Verifica se existem erros de validação
-if ($validator->fails()) {
-
-    http_response_code(422);
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
     echo json_encode([
         "sucesso" => false,
-        "mensagem" => "Corrija os campos indicados.",
-        "dados" => null,
-        "erros" => $validator->errors()
-    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        "mensagem" => "Digite um e-mail válido."
+    ]);
 
     exit;
 }
 
 
-// -------->>> TODO: Aqui será realizado o cadastro no banco de dados
+// =========================================
+// BUSCA O USUÁRIO PELO E-MAIL
+// =========================================
+
+$usuario = buscarUsuarioPorEmail($pdo, $email);
 
 
-// Retorna sucesso
-http_response_code(200);
+// =========================================
+// VERIFICA SE O USUÁRIO EXISTE
+// =========================================
+
+if (!$usuario) {
+
+    echo json_encode([
+        "sucesso" => false,
+        "mensagem" => "E-mail ou senha incorretos."
+    ]);
+
+    exit;
+}
+
+
+// =========================================
+// VERIFICA A SENHA
+// =========================================
+
+if (!password_verify(
+    $senha,
+    $usuario["senha"]
+)) {
+
+    echo json_encode([
+        "sucesso" => false,
+        "mensagem" => "E-mail ou senha incorretos."
+    ]);
+
+    exit;
+}
+
+
+// =========================================
+// CRIA A SESSÃO DO USUÁRIO
+// =========================================
+
+$_SESSION["usuario_id"] =  $usuario["id"];
+
+$_SESSION["usuario_nome"] =   $usuario["nome"];
+
+$_SESSION["usuario_email"] =  $usuario["email"];
+
+
+// =========================================
+// REGISTRA O LOGIN NO LOG
+// =========================================
+
+registrarLog(
+    $pdo,
+    $usuario["id"],
+    "LOGIN"
+);
+
+
+// =========================================
+// RETORNA SUCESSO
+// =========================================
 
 echo json_encode([
     "sucesso" => true,
-    "mensagem" => "Evento cadastrado com sucesso (controllerEvento).",
-    "dados" => $validator->data(),
-    "erros" => null
-], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    "mensagem" => "Login realizado com sucesso."
+]);
 
 exit;
-
-
-// =========================================================
-// FUNÇÃO DE VALIDAÇÃO
-// =========================================================
-
-function validarCadastro($validator)
-{
-
-    // =====================================================
-    // NOME USUARIO
-    // =====================================================
-
-    $validator->required(
-        "nomeUsuario",
-        "O nome do Usuario é obrigatório."
-    );
-
-    $validator->string(
-        "nomeUsuario",
-        "O nome do Usuario deve ser um texto válido."
-    );
-
-    $validator->minLength(
-        "nomeUsuario",
-        3,
-        "O nome do Usuario deve conter no mínimo 3 caracteres."
-    );
-
-    $validator->maxLength(
-        "nomeUsuario",
-        100,
-        "O nome do Usuario deve conter no máximo 100 caracteres."
-    );
-
-
-    // =====================================================
-    // CPF
-    // =====================================================
-
-    $validator->required(
-        "CPF",
-        "A CPF é obrigatório."
-    );
-
-    $validator->string(
-        "CPF",
-        "O CPF deve ser um texto válido."
-    );
-
-
-    // =====================================================
-    // E-mail
-    // =====================================================
-
-    $validator->required(
-        "E-mail",
-        "O E-mail é obrigatório."
-    );
-
-    $validator->string(
-        "E-mail",
-        "O E-mail deve ser válido."
-    );
-
-
-    // =====================================================
-    // Telefone
-    // =====================================================
-
-    $validator->required(
-        "Telefone",
-        "O Telefone  é obrigatório."
-    );
-
-    $validator->string(
-        "Telefone",
-        "O Telefone deve ser um texto válido."
-    );
-
-    $validator->minLength(
-        "Telefone",
-        10,
-        "O Telefone deve conter no mínimo 10 caracteres."
-    );
-
-    $validator->maxLength(
-        "Telefone",
-        15,
-        "O Telefone deve conter no máximo 15 caracteres."
-    );
-
-}
