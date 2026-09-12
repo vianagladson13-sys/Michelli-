@@ -150,82 +150,13 @@
 
                     <!-- Imagem -->
 
-                    <div class="col-lg-5 text-center">
+                    <div class="col-lg-8 text-center">
 
                         <img src="assets/img/cidade.jpg" class="img-fluid hero-img" alt="Cidade">
 
                     </div>
 
-                    <!-- Login -->
-
-                    <div class="col-lg-3">
-
-                        <div class="card shadow border-0">
-
-                            <div class="card-body p-4">
-
-                                <h3 class="mb-4 text-center">
-
-                                    Entrar
-
-                                </h3>
-                                <form id="FormLogin">
-                                    <div class="mb-3">
-
-                                        <label for="email" class="form-label">
-
-                                            E-mail
-
-                                        </label>
-
-                                        <input type="email" class="form-control" placeholder="Digite seu e-mail"
-                                            id="email">
-                                        <div class="invalid-feedback" id="erroEmail">
-                                            Digite um e-mail válido.
-                                        </div>
-
-                                    </div>
-
-                                    <div class="mb-4">
-
-                                        <label for="senha" class="form-label">
-
-                                            Senha
-
-                                        </label>
-
-                                        <input type="password" class="form-control" placeholder="Digete sua senha"
-                                            id="senha">
-                                        <div class="invalid-feedback" id="erroEmail">
-                                            Digite uma senha válida.
-                                        </div>
-
-                                    </div>
-
-                                    <a href="index.php?page=login"
-                                        class="btn btn-primary w-100 mb-3">
-                                        <i class="bi bi-lock me-2"></i>
-                                        Entrar
-                                    </a>
-
-
-                                </form>
-                                <div class="text-center">
-
-                                    <a href="index.php?page=suporte">
-
-                                        Esqueci minha senha
-
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                  
                 </div>
 
             </div>
@@ -352,10 +283,12 @@
 
             </div>
 
-        </section> <!-- FOOTER -->
+        </section> 
+        
 
     </main>
 
+    <!-- FOOTER -->
     <footer class="footer bg-dark text-light pt-5 pb-3">
 
         <div class="container">

@@ -49,10 +49,39 @@ $(document).ready(function () {
         },
 
 
+        /* =================================================
+           CONFIGURAÇÃO DA MENSAGEM DE ERRO
+        ================================================== */
+
         errorElement: "label",
 
         errorClass: "error",
 
+
+        /* =================================================
+           POSICIONA O ERRO ABAIXO DO INPUT-GROUP
+        ================================================== */
+
+        errorPlacement: function (error, element) {
+
+            if (element.closest(".input-group").length) {
+
+                error.insertAfter(
+                    element.closest(".input-group")
+                );
+
+            } else {
+
+                error.insertAfter(element);
+
+            }
+
+        },
+
+
+        /* =================================================
+           CAMPO COM ERRO
+        ================================================== */
 
         highlight: function (element) {
 
@@ -63,6 +92,10 @@ $(document).ready(function () {
         },
 
 
+        /* =================================================
+           CAMPO VÁLIDO
+        ================================================== */
+
         unhighlight: function (element) {
 
             $(element)
@@ -71,6 +104,10 @@ $(document).ready(function () {
 
         },
 
+
+        /* =================================================
+           ENVIO DO FORMULÁRIO
+        ================================================== */
 
         submitHandler: function (form) {
 

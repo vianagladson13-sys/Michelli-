@@ -151,12 +151,11 @@
 
             <!-- Conteúdo -->
             <h5 class="home-card-title">
-                Suporte
+                História
             </h5>
 
             <p class="home-card-text">
-                Encontre ajuda e informações
-                para utilizar o sistema.
+            Conheça a história do Contagem 360 e sua conexão com a cidade.
             </p>
 
 
@@ -164,7 +163,7 @@
             <a href="index.php?page=suporte"
                 class="home-card-button">
 
-                Acessar Suporte
+                Acessar história
 
                 <i class="bi bi-arrow-right"></i>
 

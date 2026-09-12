@@ -119,6 +119,8 @@
 
                     </li>
 
+                    
+
 
                     <!-- SUPORTE -->
 
@@ -130,11 +132,27 @@
 
                             <i class="bi bi-grid me-1"></i>
 
-                            suporte
+                            História
 
                         </a>
 
                     </li>
+
+                     <!-- Novo Usuário -->
+
+                     <li class="nav-item">
+
+<a
+    class="nav-link"
+    href="index.php?page=usuario">
+
+    <i class="bi bi-grid me-1"></i>
+
+    Novo Usuário
+
+</a>
+
+</li>
 
 
                     <!-- SAIR -->
@@ -248,22 +266,17 @@
                 </a>
 
 
-                <a href="index.php?page=ex-evento">
-
-                    <i class="bi bi-newspaper"></i>
-
-                    Notícias
-
-                </a>
-
-
-                <a href="index.php?page=suporte">
+                <a href="index.php?page=usuario">
 
                     <i class="bi bi-grid"></i>
 
-                    Suporte
+                    Novo Usuario
 
-                </a>
+                    </a>
+
+
+
+            
 
 
             </div>
